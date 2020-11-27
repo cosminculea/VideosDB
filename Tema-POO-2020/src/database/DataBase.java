@@ -1,13 +1,17 @@
 package database;
 
 import entertainment.Season;
-import fileio.*;
 import entities.actor.Actor;
 import entities.user.PremiumUser;
 import entities.user.User;
 import entities.video.Film;
 import entities.video.Show;
+import fileio.SerialInputData;
 import entities.video.Video;
+import fileio.ActorInputData;
+import fileio.Input;
+import fileio.MovieInputData;
+import fileio.UserInputData;
 import java.util.ArrayList;
 import java.util.List;
 

@@ -37,20 +37,21 @@ public final class QueryActors {
                                       final List<List<String>> filters,
                                       final String sortType,
                                       final String criteria,
-                                      int number) {
+                                      final int number) {
 
         ArrayList<GeneralObject> sortedActors = getActorsSorted(actors, videos, filters,
-                                                                    sortType, criteria);
+                                                                                sortType, criteria);
+        int numberOfActors = number;
         if (criteria.equals(DESCRIPTION)) {
-            number = sortedActors.size();
+            numberOfActors = sortedActors.size();
         }
 
         if (criteria.equals(AWARDS)) {
-            number = sortedActors.size();
+            numberOfActors = sortedActors.size();
         }
 
         StringBuilder outMessage = new StringBuilder("Query result: ");
-        return OutMessage.create(sortedActors, number, outMessage);
+        return OutMessage.create(sortedActors, numberOfActors, outMessage);
 
     }
 

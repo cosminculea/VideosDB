@@ -14,26 +14,26 @@ public final class OutMessage {
      */
 
     public static String create(final ArrayList<? extends GeneralObject> objects,
-                                int number,
+                                final int number,
                                 final StringBuilder outMessage) {
-
+        int numberOfObjects = number;
         if (objects.isEmpty()) {
             outMessage.append("[]");
             return outMessage.toString();
         }
 
         if (objects.size() < number) {
-            number = objects.size();
+            numberOfObjects = objects.size();
         }
 
         outMessage.append("[");
 
-        for (int i = 0; i < number - 1; i++) {
+        for (int i = 0; i < numberOfObjects - 1; i++) {
             outMessage.append(objects.get(i).getOutMethod());
             outMessage.append(", ");
         }
 
-        outMessage.append(objects.get(number - 1).getOutMethod());
+        outMessage.append(objects.get(numberOfObjects - 1).getOutMethod());
         outMessage.append("]");
         return outMessage.toString();
     }
