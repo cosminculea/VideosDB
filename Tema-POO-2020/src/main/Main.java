@@ -2,6 +2,7 @@ package main;
 
 import action.Action;
 import action.command.Command;
+import action.recommendation.Recommendation;
 import checker.Checkstyle;
 import checker.Checker;
 import common.Constants;
@@ -81,10 +82,20 @@ public final class Main {
 
         //TODO add here the entry point to your implementation
         for (ActionInputData action : actions) {
-            Action command = new Command(action, dataBase);
-            command.execute();
-            arrayResult.add(fileWriter.writeFile(command.getId(), "",
-                    command.getOutMessage()));
+            if (action.getActionType().equals("command")) {
+                Action command = new Command(action, dataBase);
+                command.execute();
+                arrayResult.add(fileWriter.writeFile(command.getId(), "",
+                        command.getOutMessage()));
+            }
+
+            if (action.getActionType().equals("recommendation")) {
+                Action recommend = new Recommendation(action, dataBase);
+                recommend.execute();
+                arrayResult.add(fileWriter.writeFile(recommend.getId(), "",
+                        recommend.getOutMessage()));
+            }
+
         }
 
         fileWriter.closeJSON(arrayResult);
