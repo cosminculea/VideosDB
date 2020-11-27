@@ -1,2 +1,5 @@
 Starting audit...
+[ERROR] /home/cosmin/Desktop/tema_POO/tema_POO/Tema-POO-2020/./src/action/utils/OutMessage.java:18:33: Parameter number should be final. [FinalParameters]
+[ERROR] /home/cosmin/Desktop/tema_POO/tema_POO/Tema-POO-2020/./src/database/DataBase.java:4:14: Using the '.*' form of import should be avoided - fileio.*. [AvoidStarImport]
 Audit done.
+Checkstyle ends with 2 errors.

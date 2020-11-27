@@ -1,4 +1,4 @@
-package entities.videos;
+package entities.video;
 
 import entertainment.Season;
 import fileio.SerialInputData;

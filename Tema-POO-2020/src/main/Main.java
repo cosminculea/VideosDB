@@ -1,8 +1,12 @@
 package main;
 
+import action.Action;
+import action.command.Command;
 import checker.Checkstyle;
 import checker.Checker;
 import common.Constants;
+import database.DataBase;
+import fileio.ActionInputData;
 import fileio.Input;
 import fileio.InputLoader;
 import fileio.Writer;
@@ -13,12 +17,14 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.List;
 import java.util.Objects;
 
 /**
  * The entry point to this homework. It runs the checker that tests your implentation.
  */
 public final class Main {
+
     /**
      * for coding style
      */
@@ -70,7 +76,16 @@ public final class Main {
         Writer fileWriter = new Writer(filePath2);
         JSONArray arrayResult = new JSONArray();
 
+        List<ActionInputData> actions = input.getCommands();
+        DataBase dataBase = new DataBase(input);
+
         //TODO add here the entry point to your implementation
+        for (ActionInputData action : actions) {
+            Action command = new Command(action, dataBase);
+            command.execute();
+            arrayResult.add(fileWriter.writeFile(command.getId(), "",
+                    command.getOutMessage()));
+        }
 
         fileWriter.closeJSON(arrayResult);
     }
