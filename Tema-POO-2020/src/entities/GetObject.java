@@ -2,7 +2,6 @@ package entities;
 
 import entities.user.User;
 import entities.video.Video;
-
 import java.util.ArrayList;
 
 public final class GetObject {

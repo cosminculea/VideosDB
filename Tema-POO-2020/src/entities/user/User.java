@@ -3,7 +3,6 @@ package entities.user;
 import fileio.UserInputData;
 import entities.GeneralObject;
 import entities.video.Video;
-
 import java.util.ArrayList;
 import java.util.Map;
 

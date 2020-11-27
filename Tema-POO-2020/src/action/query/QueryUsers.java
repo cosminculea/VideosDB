@@ -3,7 +3,6 @@ package action.query;
 import action.utils.OutMessage;
 import entities.GeneralObject;
 import entities.user.User;
-
 import java.util.ArrayList;
 
 public final class QueryUsers {

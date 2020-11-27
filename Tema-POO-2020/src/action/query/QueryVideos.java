@@ -3,7 +3,6 @@ package action.query;
 import action.utils.OutMessage;
 import entities.GeneralObject;
 import entities.video.Video;
-
 import java.util.ArrayList;
 import java.util.List;
 

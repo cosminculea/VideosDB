@@ -2,7 +2,6 @@ package action;
 
 import fileio.Writer;
 import org.json.simple.JSONArray;
-
 import java.io.IOException;
 import java.util.ArrayList;
 

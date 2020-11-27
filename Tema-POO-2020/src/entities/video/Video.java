@@ -2,7 +2,6 @@ package entities.video;
 
 import fileio.ShowInput;
 import entities.GeneralObject;
-
 import java.util.ArrayList;
 
 public abstract class Video implements GeneralObject {

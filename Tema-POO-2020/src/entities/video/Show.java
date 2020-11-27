@@ -2,7 +2,6 @@ package entities.video;
 
 import entertainment.Season;
 import fileio.SerialInputData;
-
 import java.util.ArrayList;
 
 public final class Show extends Video {

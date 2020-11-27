@@ -3,7 +3,6 @@ package entities.user;
 import action.utils.OutMessage;
 import fileio.UserInputData;
 import entities.video.Video;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;

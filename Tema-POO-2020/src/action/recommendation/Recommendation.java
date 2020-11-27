@@ -6,7 +6,6 @@ import fileio.ActionInputData;
 import entities.GetObject;
 import entities.user.User;
 import entities.video.Video;
-
 import java.util.ArrayList;
 
 public final class Recommendation implements Action {

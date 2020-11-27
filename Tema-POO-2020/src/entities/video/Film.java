@@ -2,7 +2,6 @@ package entities.video;
 
 import fileio.MovieInputData;
 import entities.GeneralObject;
-
 import java.util.ArrayList;
 
 public final class Film extends Video implements GeneralObject {

@@ -1,9 +1,8 @@
 package main;
 
-import action.Action;
-import action.command.Command;
-import action.query.Query;
-import action.recommendation.Recommendation;
+
+import action.ActionBroker;
+import action.ActionFactory;
 import checker.Checkstyle;
 import checker.Checker;
 import common.Constants;
@@ -35,6 +34,7 @@ public final class Main {
 
     /**
      * Call the main checker and the coding style checker
+     *
      * @param args from command line
      * @throws IOException in case of exceptions to reading / writing
      */
@@ -70,42 +70,28 @@ public final class Main {
      * @param filePath2 for output file
      * @throws IOException in case of exceptions to reading / writing
      */
-    public static void action(final String filePath1,
-                              final String filePath2) throws IOException {
+    public static void action(final String filePath1, final String filePath2) throws IOException {
         InputLoader inputLoader = new InputLoader(filePath1);
         Input input = inputLoader.readData();
 
         Writer fileWriter = new Writer(filePath2);
         JSONArray arrayResult = new JSONArray();
 
-        List<ActionInputData> actions = input.getCommands();
+        List<ActionInputData> actionsInput = input.getCommands();
+
+        // construct database with all actors, videos and users
         DataBase dataBase = new DataBase(input);
+        ActionBroker broker = new ActionBroker(input.getCommands().size());
 
-        //TODO add here the entry point to your implementation
-        for (ActionInputData action : actions) {
-            if (action.getActionType().equals("command")) {
-                Action command = new Command(action, dataBase);
-                command.execute();
-                arrayResult.add(fileWriter.writeFile(command.getId(), "",
-                        command.getOutMessage()));
-            }
-
-            if (action.getActionType().equals("recommendation")) {
-                Action recommend = new Recommendation(action, dataBase);
-                recommend.execute();
-                arrayResult.add(fileWriter.writeFile(recommend.getId(), "",
-                        recommend.getOutMessage()));
-            }
-
-            if (action.getActionType().equals("query")) {
-                Action query = new Query(action, dataBase);
-                query.execute();
-                arrayResult.add(fileWriter.writeFile(query.getId(), "",
-                        query.getOutMessage()));
-            }
-
+        // construct all actions and add them to the broker (command pattern)
+        for (ActionInputData actionInput : actionsInput) {
+            broker.takeAction(ActionFactory.getAction(actionInput, dataBase));
         }
 
+        // execute all actions and store the message for each action in fileWriter
+        broker.placeActions(arrayResult, fileWriter);
+
         fileWriter.closeJSON(arrayResult);
+
     }
 }

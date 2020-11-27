@@ -7,7 +7,6 @@ import fileio.ActionInputData;
 import entities.actor.Actor;
 import entities.user.User;
 import entities.video.Video;
-
 import java.util.ArrayList;
 import java.util.List;
 

@@ -8,7 +8,6 @@ import entities.user.User;
 import entities.video.Film;
 import entities.video.Show;
 import entities.video.Video;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -114,12 +113,12 @@ public final class DataBase {
        }
 
        for (SerialInputData show : showsInput) {
-           Video newShow = new Show(show);
+           Show newShow = new Show(show);
            shows.add(newShow);
            videos.add(newShow);
 
-           for (Season season : ((Show) newShow).getSeasons()) {
-               ((Show) newShow).addToDuration(season.getDuration());
+           for (Season season : newShow.getSeasons()) {
+               newShow.addToDuration(season.getDuration());
            }
 
            for (User user : users) {

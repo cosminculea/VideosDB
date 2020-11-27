@@ -1,7 +1,6 @@
 package action.utils;
 
 import entities.GeneralObject;
-
 import java.util.ArrayList;
 
 public final class OutMessage {
