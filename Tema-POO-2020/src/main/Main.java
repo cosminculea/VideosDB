@@ -2,6 +2,7 @@ package main;
 
 import action.Action;
 import action.command.Command;
+import action.query.Query;
 import action.recommendation.Recommendation;
 import checker.Checkstyle;
 import checker.Checker;
@@ -94,6 +95,13 @@ public final class Main {
                 recommend.execute();
                 arrayResult.add(fileWriter.writeFile(recommend.getId(), "",
                         recommend.getOutMessage()));
+            }
+
+            if (action.getActionType().equals("query")) {
+                Action query = new Query(action, dataBase);
+                query.execute();
+                arrayResult.add(fileWriter.writeFile(query.getId(), "",
+                        query.getOutMessage()));
             }
 
         }
