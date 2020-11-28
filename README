@@ -1,0 +1,98 @@
+Culea Cosmin 
+321CA
+
+                            Tema 1 - POO
+
+
+
+    Distributia in pachete si relatiile dintre clase
+
+        ---Pachetul objects--- contine 3 subpachete cu toate entitatile 
+        necesare pentru rezolvarea temei: actor, user, video, plus 2 clase 
+        utile pentru relationarea dintre acestea si actiuni.
+
+            - pachetul actor contine clasa Actor si enum-ul ActorsAwards
+
+            - pachetul user contine clasa User si clasa PremiumUser care
+        o mosteneste pe prima, din nevoia de a avea totalitatea atributelor
+        lui User si alte 3 metode cu implementare diferita (recomandarile 
+        popular, search si favorite)
+
+            - pachetul video contine clasa abstracta parinte Video si cele
+        2 clase copil ale acesteia, Film si Show. Astfel se creeaza o interfata
+        comuna intre cele 2 tipuri de video, avand foarte multe campuri comune,
+        insa le diferentiaza metoda de calcularea a ratingului si a duratei.
+
+            - clasa GeneralObject este o interfata comuna tuturor entitatilor
+        (actor, user, video) care defineste o metoda de output, folosita pentru
+        eliminarea codului duplicat in cazurile din QueryVideos, QueryActors,
+        QueryVideos, dar si Recommendation prin clasa OutMessage care creeaza
+        mesajul de afisare.
+
+            - clasa GetObject defineste 2 metode utile atat in creeare bazei
+        de date (DataBase) cat si in executia tuturor actiunilor (execute)
+
+
+
+        ---Pachetul actions--- contine 3 subpachete pentru toate tipurile de 
+    actiuni posibile: command, query, recommendation, 1 subpachet utils 
+    ce contine clasa OutMessage, o interfata Action, si 2 clase ActionBroker,
+    ActionFactory
+
+            - interfata Action uneste toate cele 3 actiuni, toate avand la baza
+        metoda execute, un id si mesajul in functie de succesul sau eroarea 
+        intampinata in timpul executiei. In plus, aceasta interfata este utila
+        pentru mentinerea design-pattern-urilor command si factory, impreuna cu
+        clasele ActionBroker, respectiv ActionFactory
+
+            - pachetul utils contine clasa OutMessage cu singura sa metoda de
+        creare a mesajului de output (utila in actiuni)
+
+            - pachetul command contine clasa Command care apeleaza pentru un
+        anumit user anumite comenzi. Altfel spus, executia comenzilor se 
+        realizeaza numai prin useri, deci implementarea propriu zisa a acestora
+        se afla in clasa User, clasa Command fiind doar un mediator.
+
+            - pachetul query contine 3 clase specifice QueryActors, QueryVideos
+        si QueryUsers care au scop modularizarea si incapusularea codului 
+        pentru fiecare queryin functie de entitatea pe care opereaza. Fiecare 
+        din cele 3 contin metode de sortare si comparare, dar si metode de
+        decizie in functie de subtipul fiecarui query si o metode de intoarcere
+        a mesajului, ce va fi stocat mai departe in clasa Query. Aceasta clasa
+        decide catre care tip de query se indreapta executia.
+
+            - pachetul recommendation contine clasa Recommendation ce are
+        comportament asemanator clasei Command
+
+
+
+        ---Pachetul database---
+
+            - contine clasa DataBase care creeaza contine toti userii, actorii
+        si video-urile in functie de datele din input, dar si prin parcurgerea
+        altor entitati pentru a initializa anumite campuri aditionale din 
+        acestea. Obiectivul acestei clase este de a oferi actiunilor o 
+        modalitate de a accesa toate entitatile din baza de date in functie 
+        de nevoie.
+
+
+
+    Flow-ul programului si design patternuri
+
+        - in functia main:
+            - se creeaza baza de date, 
+            - se parcurge fiecare actiune din input si cu ajutorul 
+        ActionFactory ce creeaza cate un Action in functie tipul acesteia:
+        query, command, recommendation (factory pattern)
+            - fiecare actiune este preluata intr-o lista de ActionBroker
+        si este pusa "on hold"
+            - aceasta sunt executate tot de catre ActionBroker, rand pe rand
+        (command pattern), iar mesajul fiecareia este adaugat in fileWriter
+
+        - executia fiecarei actiuni se face in functie de tipul dinamic 
+    (query, command, recommendation) datorita interfetei Action. Fiecare
+    metoda execute din fiecare tip dinamic, redirectioneaza mai apoi in functie
+    de subtipul actiunii(search, popular, bestunseen, etc) catre alte clase
+    specifice (QueryVideos, QueryActors, QueryUsers) sau catre useri care 
+    fac modificarile necesare (executia propriu-zisa)
+
